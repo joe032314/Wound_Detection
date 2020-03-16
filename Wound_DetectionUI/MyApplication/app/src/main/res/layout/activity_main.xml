@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.emelab406.myapplication.MainActivity">
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="病歷號："
+        android:textSize = "40sp"
+        android:gravity = "center"
+        android:textColor="@color/colorPrimaryDark"
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="52dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="28dp" />
+    <TextureView
+        android:id="@+id/textureView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="126dp"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="126dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintVertical_bias="1.0" />
+    <ImageButton
+        android:id="@+id/ImageButton"
+        android:layout_width="110dp"
+        android:layout_height="106dp"
+        android:text="拍照"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="6dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@drawable/camera"
+        tools:layout_editor_absoluteY="1031dp" />
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="162dp"
+        android:layout_height="83dp"
+        android:layout_marginBottom="1031dp"
+        android:text="輸入基本資料"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.971"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
+
+</android.support.constraint.ConstraintLayout>
