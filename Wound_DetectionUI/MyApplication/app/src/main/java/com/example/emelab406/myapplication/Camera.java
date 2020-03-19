@@ -1,69 +1,23 @@
 package com.example.emelab406.myapplication;
 
-import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.ImageFormat;
-import android.graphics.Picture;
-import android.graphics.SurfaceTexture;
-import android.hardware.camera2.CameraAccessException;
-import android.hardware.camera2.CameraCaptureSession;
-import android.hardware.camera2.CameraCharacteristics;
-import android.hardware.camera2.CameraDevice;
-import android.hardware.camera2.CameraManager;
-import android.hardware.camera2.CameraMetadata;
-import android.hardware.camera2.CaptureRequest;
-import android.hardware.camera2.CaptureResult;
-import android.hardware.camera2.TotalCaptureResult;
-import android.hardware.camera2.params.Face;
-import android.hardware.camera2.params.StreamConfigurationMap;
-import android.media.Image;
-import android.media.ImageReader;
-import android.media.MediaPlayer;
-import android.media.MediaRecorder;
-import android.net.Uri;
-import android.os.CountDownTimer;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.util.Size;
-import android.util.SparseIntArray;
-import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.TextureView;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.ByteBuffer;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
-import static android.R.attr.data;
-
-public class Camera extends AppCompatActivity implements SurfaceHolder.Callback, android.hardware.Camera.AutoFocusCallback {
+public class Camera extends AppCompatActivity implements SurfaceHolder.Callback,
+        android.hardware.Camera.AutoFocusCallback {
+    int width = 640;
+    int height = 480;
     Intent intent;
     int count = 11;
     private ImageButton TakePictureBtn;
@@ -73,14 +27,14 @@ public class Camera extends AppCompatActivity implements SurfaceHolder.Callback,
     private TextView textview;
     private String StorePath = "/sdcard/temp.png";
 
-   //android.hardware.Camera.Parameters parameters = camera.getParameters();
+    //android.hardware.Camera.Parameters parameters = camera.getParameters();
     //parameters.setPictureFormat(ImageFormat.JPEG);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-        mSurfaceView = (SurfaceView) this.findViewById(R.id.surfaceView);
+        mSurfaceView = (SurfaceView) this.findViewById(R.id.surfaceView2);
         mSurfaceHolder = mSurfaceView.getHolder();
         mSurfaceHolder.addCallback(this);
         TakePictureBtn = (ImageButton)findViewById(R.id.ImageButton);
@@ -90,26 +44,21 @@ public class Camera extends AppCompatActivity implements SurfaceHolder.Callback,
             @Override
             public void onClick(View view)
             {
-                //錄影
+                try
+                {
+                    camera.autoFocus(Camera.this);
+                    //camera.takePicture(null, null, jpeg);
+                }
+                catch (Exception ex)
+                {
+                    ex.printStackTrace();
+                }
 
-                new CountDownTimer(10000, 1000) {
+                intent = new Intent();
+                intent.setClass(Camera.this, Confirm_Camera.class);
+                startActivity(intent);
+                Camera.this.finish();
 
-                    @Override
-
-                    public void onTick(long millisUntilFinished) {
-                        //倒數秒數中要做的事
-                        textview.setText(new SimpleDateFormat("s").format(millisUntilFinished));
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        //倒數完成後要做的事
-                        intent = new Intent();
-                        intent.setClass(Camera.this, Confirm_Camera.class);
-                        startActivity(intent);
-                        Camera.this.finish();
-                    }
-                }.start();
             }
         });
 
@@ -122,6 +71,14 @@ public class Camera extends AppCompatActivity implements SurfaceHolder.Callback,
 
 
     }
+
+    public static android.hardware.Camera.PictureCallback jpeg = new android.hardware.Camera.PictureCallback() {
+        @Override
+        public void onPictureTaken(byte[] data, android.hardware.Camera camera)
+        {
+
+        }
+    };
 
     @Override
     protected void onResume() {
@@ -159,6 +116,10 @@ public class Camera extends AppCompatActivity implements SurfaceHolder.Callback,
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height) {
         Log.i("MYLOG","SurfaceView changes!");
+        android.hardware.Camera.Parameters parameters = camera.getParameters();
+        List supportedPictureSizes = parameters.getSupportedPictureSizes();
+        parameters.setPictureFormat(PixelFormat.JPEG);
+        parameters.setPreviewSize(width, height);
         camera.startPreview();
         //camera.autoFocus(Camera.this);
     }
@@ -172,26 +133,6 @@ public class Camera extends AppCompatActivity implements SurfaceHolder.Callback,
 
     @Override
     public void onAutoFocus(boolean success, android.hardware.Camera camera) {
-        if (success)
-        {
-           // android.hardware.Camera.PictureCallback jpeg = new camera.PictureCallback();
-            //camera.takePicture(null,null,jpeg);
-        }
     }
 
-   // @Override
-    //public void onPictureTaken(byte[] bytes, android.hardware.Camera camera) {
-        //File mFile = new File(StorePath);
-        //try {
-         //   FileOutputStream fos=new FileOutputStream(mFile);
-         //   fos.write(data);
-         //   fos.close();
-          //  Intent intent=new Intent(Camera.this,Confirm_Camera.class);
-          //  intent.putExtra("picPath",mFile.getAbsolutePath());
-          //  startActivity(intent);
-          //  finish();
-        //} catch (IOException e) {
-         //   e.printStackTrace();
-        //}
-    //}
 }

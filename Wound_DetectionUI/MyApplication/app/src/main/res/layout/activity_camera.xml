@@ -32,36 +32,32 @@
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="10"
-        android:textSize="40sp"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp" />
-
     <SurfaceView
-        android:id="@+id/surfaceView"
+        android:id="@+id/surfaceView2"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="810dp"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="139dp"
+        android:layout_marginTop="166dp"
         tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="139dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintHorizontal_bias="0.0" />
 
-
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0001"
+        android:textSize = "40sp"
+        android:gravity = "center"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginStart="321dp"
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginTop="52dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="319dp" />
 </android.support.constraint.ConstraintLayout>
